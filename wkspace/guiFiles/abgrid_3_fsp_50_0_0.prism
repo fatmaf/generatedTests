@@ -1,0 +1,76 @@
+mdp
+const double p = 0.8;
+const int failstate = -1;
+const int open = 1;
+const int closed = 0;
+const int unknown = -1;
+
+
+module grid
+s:[failstate .. 9] init 1;
+[s0_s1] (s=0) -> 1.0:(s'=1);
+[s0_s2] (s=0) -> p:(s'=2) + 1-p:(s'=failstate);
+[s1_s0] (s=1) -> p:(s'=0) + 1-p:(s'=failstate);
+[s1_s3] (s=1) -> 1.0:(s'=3);
+[s1_s4] (s=1) -> 1.0:(s'=4);
+[s3_s1] (s=3) -> 1.0:(s'=1);
+[s3_s5] (s=3) -> p:(s'=5) + 1-p:(s'=failstate);
+[s2_s6] (s=2) -> p:(s'=6) + 1-p:(s'=failstate);
+[s2_s0] (s=2) -> p:(s'=0) + 1-p:(s'=failstate);
+[s2_s4] (s=2) -> 1.0:(s'=4);
+[s4_s5] (s=4) -> p:(s'=5) + 1-p:(s'=failstate);
+[s4_s1] (s=4) -> 1.0:(s'=1);
+[s4_s2] (s=4) -> p:(s'=2) + 1-p:(s'=failstate);
+[s4_s7] (s=4) -> 1.0:(s'=7);
+[s5_s3] (s=5) -> 1.0:(s'=3);
+[s5_s4] (s=5) -> 1.0:(s'=4);
+[s5_s8] (s=5) -> p:(s'=8) + 1-p:(s'=failstate);
+[s6_s2] (s=6) -> p:(s'=2) + 1-p:(s'=failstate);
+[s6_s7] (s=6) -> 1.0:(s'=7);
+[s7_s6] (s=7) -> p:(s'=6) + 1-p:(s'=failstate);
+[s7_s4] (s=7) -> 1.0:(s'=4);
+[s7_s8] (s=7) -> p:(s'=8) + 1-p:(s'=failstate);
+[s8_s5] (s=8) -> p:(s'=5) + 1-p:(s'=failstate);
+[s8_s7] (s=8) -> 1.0:(s'=7);
+[failed] (s=failstate) -> 1.0:(s'=failstate);
+endmodule
+
+
+label "s8" = (s=8);
+label "s3" = (s=3);
+label "s2" = (s=2);
+label "s1" = (s=1);
+label "s0" = (s=0);
+label "s7" = (s=7);
+label "s6" = (s=6);
+label "s5" = (s=5);
+label "s4" = (s=4);
+
+
+rewards"time"
+[s0_s1] (s=0) : 1.0;
+[s0_s2] (s=0) : 1.0;
+[s1_s0] (s=1) : 1.0;
+[s1_s3] (s=1) : 1.0;
+[s1_s4] (s=1) : 1.0;
+[s3_s1] (s=3) : 1.0;
+[s3_s5] (s=3) : 1.0;
+[s2_s6] (s=2) : 1.0;
+[s2_s0] (s=2) : 1.0;
+[s2_s4] (s=2) : 1.0;
+[s4_s5] (s=4) : 1.0;
+[s4_s1] (s=4) : 1.0;
+[s4_s2] (s=4) : 1.0;
+[s4_s7] (s=4) : 1.0;
+[s5_s3] (s=5) : 1.0;
+[s5_s4] (s=5) : 1.0;
+[s5_s8] (s=5) : 1.0;
+[s6_s2] (s=6) : 1.0;
+[s6_s7] (s=6) : 1.0;
+[s7_s6] (s=7) : 1.0;
+[s7_s4] (s=7) : 1.0;
+[s7_s8] (s=7) : 1.0;
+[s8_s5] (s=8) : 1.0;
+[s8_s7] (s=8) : 1.0;
+[failed] (s=failstate) : 1.0;
+endrewards
